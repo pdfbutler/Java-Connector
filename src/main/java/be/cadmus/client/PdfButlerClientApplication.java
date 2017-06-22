@@ -46,9 +46,9 @@ public class PdfButlerClientApplication {
 		list.put("ProdQuantity", "12");
 		sl1.addData(list2);
 		
-		for(int i=0;i<10;i++) {
+		//for(int i=0;i<10;i++) {
 			ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
 			System.out.println("PDF Butler ready with status: " + resp.getResult());
-		}
+		//}
 	}
 }
