@@ -47,7 +47,7 @@ public class PdfButlerClientApplication {
 		sl1.addData(list2);
 		
 		for(int i=0;i<10;i++) {
-			ConvertResponse resp = Convertor.doConvert("istuyver22", "4bcb0e15-cbd3-4ca8-b9c6-ce9e5df67b22", metadata, datasources, "2457a47d-829a-4a2b-8d6c-331fd877c2ec");
+			ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
 			System.out.println("PDF Butler ready with status: " + resp.getResult());
 		}
 	}
