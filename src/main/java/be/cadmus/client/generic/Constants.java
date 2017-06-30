@@ -48,4 +48,9 @@ public class Constants {
 		ADMIN,
 		USER
 	}
+
+	public enum ConvertFileType {
+		PDF,
+		DOCX
+	}
 }

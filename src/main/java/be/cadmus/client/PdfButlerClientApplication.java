@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import be.cadmus.client.convert.Convertor;
+import be.cadmus.client.generic.Constants.ConvertFileType;
 import be.cadmus.client.generic.Constants.Stage;
 import be.cadmus.client.model.ConvertResponse;
 import be.cadmus.client.model.DatasourceList;
@@ -22,9 +23,10 @@ public class PdfButlerClientApplication {
 		//required: indicate which version of the document to call
 		metadata.setStage(Stage.TEST);
 		//not required: passes the title to replace
-		metadata.setTargetName("[[!AccountName!]]_[[!StageName!]].pdf");
+		metadata.setTargetName("[[!AccountName!]]_[[!StageName!]]");
 		//not required: use this field to log who used PDF Butler in your organization
 		metadata.setUserId("istuyver");
+		metadata.setTargetType(ConvertFileType.PDF);
 
 		//Create datasources
 		Datasources datasources = new Datasources();
@@ -46,9 +48,10 @@ public class PdfButlerClientApplication {
 		list.put("ProdQuantity", "12");
 		sl1.addData(list2);
 		
-		//for(int i=0;i<10;i++) {
+		for(int i=0;i<10;i++) {
 			ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
 			System.out.println("PDF Butler ready with status: " + resp.getResult());
-		//}
+			System.out.println("PDF Butler ready with target name: " + resp.getMetadata().getTargetName());
+		}
 	}
 }

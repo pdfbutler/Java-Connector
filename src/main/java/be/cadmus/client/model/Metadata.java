@@ -1,6 +1,7 @@
 package be.cadmus.client.model;
 
 import be.cadmus.client.generic.Constants;
+import be.cadmus.client.generic.Constants.ConvertFileType;
 import be.cadmus.client.generic.Constants.Stage;
 
 public class Metadata {
@@ -10,6 +11,7 @@ public class Metadata {
 	private Stage stage;
 	private String targetName;
 	private String version = Constants.CURRENT_VERSION.getValue();
+	private ConvertFileType targetType;
 	
 	public String getUserId() {
 		return userId;
@@ -37,5 +39,11 @@ public class Metadata {
 	}
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+	public ConvertFileType getTargetType() {
+		return targetType;
+	}
+	public void setTargetType(ConvertFileType conversionType) {
+		this.targetType = conversionType;
 	}
 }
