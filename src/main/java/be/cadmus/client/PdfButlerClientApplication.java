@@ -33,14 +33,12 @@ public class PdfButlerClientApplication {
 
 		//Create datasources
 		Datasources datasources = new Datasources();
-		//DatasourceSingle account = datasources.getSingle("<YOUR ACCOUNT DATASOURCE ID>");
-		DatasourceSingle account = datasources.getSingle("c5c1b536-e37f-48ac-83a2-a1427779d63d");
+		DatasourceSingle account = datasources.getSingle("<YOUR ACCOUNT DATASOURCE ID>");
 		account.addData("OppOwner", "Igor Stuyver");
 		account.addData("AccountName", "CloudCrossing");
 		account.addData("StageName", "Closed Won");
 
-		//DatasourceList products = datasources.getList("<YOUR PRODUCTS DATASOURCE ID>");
-		DatasourceList products = datasources.getList("207fb3ba-ae7e-46ec-bbc5-b1b43a5e9d52");
+		DatasourceList products = datasources.getList("<YOUR PRODUCTS DATASOURCE ID>");
 		Map<String, String> map = products.addMap();
 		map.put("ProdName", "Gizmo 1");
 		map.put("ProdPrice", "1000");
@@ -57,8 +55,7 @@ public class PdfButlerClientApplication {
 		map.put("ProdQuantity", "50");
 		
 		//!! be aware that this implementation requires the password for the USER role
-		//ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
-		ConvertResponse resp = Convertor.doConvert("istuyver", "29f34ab1-baa0-419c-96fa-5ed9428d1e20", metadata, datasources, "0445b4b1-8163-4350-a524-56d2c23b16f6");
+		ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
 		System.out.println("PDF Butler ready with status: " + resp.getResult());
 		System.out.println("PDF Butler ready with target name: " + resp.getMetadata().getTargetName());
 		

@@ -35,15 +35,13 @@ public class PdfButlerAdvancedClientApplication {
 
 		//Create datasources
 		Datasources datasources = new Datasources();
-		//DatasourceSingle account = datasources.getSingle("<YOUR ACCOUNT DATASOURCE ID>");
-		DatasourceSingle account = datasources.getSingle("7c52438e-58b8-442f-9471-1f5d9e3bd67f");
+		DatasourceSingle account = datasources.getSingle("<YOUR ACCOUNT DATASOURCE ID>");
 		account.addData("Id", "Acc1");
 		account.addData("Name", "CloudCrossing");
 		account.addData("Phone", "555/12345678");
 		account.addData("Fax", "555/87654321");
 
-		//DatasourceList opportunities = datasources.getList("<YOUR OPPORTUNITIES DATASOURCE ID>");
-		DatasourceList opportunities = datasources.getList("f684dffa-1c54-482b-908b-1f5bac8c282f");
+		DatasourceList opportunities = datasources.getList("<YOUR OPPORTUNITIES DATASOURCE ID>");
 		Map<String, String> map = opportunities.addMap();
 		map.put("Id", "Opp1");
 		map.put("OppName", "500.000 widgets");
@@ -63,15 +61,14 @@ public class PdfButlerAdvancedClientApplication {
 		map.put("AccountId", "Acc1");
 
 		
-		//DatasourceList opportunityProducts = datasources.getList("<YOUR OPPORTUNITY PRODUCTS DATASOURCE ID>");
-		DatasourceList opportunityProducts = datasources.getList("0a10137c-a6be-4b9c-abad-a47f76032c8c");
+		DatasourceList opportunityProducts = datasources.getList("<YOUR OPPORTUNITY PRODUCTS DATASOURCE ID>");
 		map = opportunityProducts.addMap();
 		map.put("ProductName", "Widget 1");
 		map.put("Quantity", "200.000");
 		map.put("OpportunityId", "Opp1");
 		map.put("UnitPrice", "50");
 		map.put("ProductCode", "100");
-		map.put("TemplateId", "fc669f06-9f5e-4595-be09-a2235d6f94fe");
+		map.put("TemplateId", "<MOTORS TEMPLATE ID>");
 		
 		map = opportunityProducts.addMap();
 		map.put("ProductName", "Widget 2");
@@ -79,7 +76,7 @@ public class PdfButlerAdvancedClientApplication {
 		map.put("OpportunityId", "Opp1");
 		map.put("UnitPrice", "70");
 		map.put("ProductCode", "200");
-		map.put("TemplateId", "16f468ff-8f92-4762-8fdd-b6a09a1f6b08");
+		map.put("TemplateId", "<OPTIONS TEMPLATE ID>");
 		
 		map = opportunityProducts.addMap();
 		map.put("ProductName", "Widget 2");
@@ -87,7 +84,7 @@ public class PdfButlerAdvancedClientApplication {
 		map.put("OpportunityId", "Opp2");
 		map.put("UnitPrice", "70");
 		map.put("ProductCode", "200");
-		map.put("TemplateId", "fc669f06-9f5e-4595-be09-a2235d6f94fe");
+		map.put("TemplateId", "<MOTORS TEMPLATE ID>");
 		
 		map = opportunityProducts.addMap();
 		map.put("ProductName", "Widget 3");
@@ -95,17 +92,15 @@ public class PdfButlerAdvancedClientApplication {
 		map.put("OpportunityId", "Opp3");
 		map.put("UnitPrice", "1000");
 		map.put("ProductCode", "300");
-		map.put("TemplateId", "16f468ff-8f92-4762-8fdd-b6a09a1f6b08");
+		map.put("TemplateId", "<OPTIONS TEMPLATE ID>");
 
-		//DatasourcePicture logo = datasources.getPicture("<YOUR LOGO DATASOURCE ID>");
-		DatasourcePicture logo = datasources.getPicture("7f9b1ef3-26b6-41f3-8fe9-ba20334481b7");
+		DatasourcePicture logo = datasources.getPicture("<YOUR LOGO DATASOURCE ID>");
 		Picture logo1 = logo.addPicture();
 		logo1.setFile(new File("C:/Users/istuyver/Pictures/pdfbutlerlogo.png"));
 		logo1.setName("Pdf Butler Logo");
 		logo1.setParentId(null);
 
-		//DatasourcePicture accountLogo = datasources.getPicture("<YOUR ACCOUNT LOGO DATASOURCE ID>");
-		DatasourcePicture accountLogo = datasources.getPicture("0bdf1f1d-d745-47fd-802c-0c732f906262");
+		DatasourcePicture accountLogo = datasources.getPicture("<YOUR ACCOUNT LOGO DATASOURCE ID>");
 		Picture accountLogo1 = accountLogo.addPicture();
 		accountLogo1.setFile(new File("C:/Users/istuyver/Pictures/cadmus_arch.png"));
 		accountLogo1.setName("Pdf Butler Architecture");
@@ -113,11 +108,10 @@ public class PdfButlerAdvancedClientApplication {
 		
 		
 		//!! be aware that this implementation requires the password for the USER role
-		//ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
-		ConvertResponse resp = Convertor.doConvert("istuyver", "29f34ab1-baa0-419c-96fa-5ed9428d1e20", metadata, datasources, "95f4e257-1a4a-46ff-a6a8-6c3628c26906");
+		ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
 		System.out.println("PDF Butler ready with status: " + resp.getResult());
 		System.out.println("PDF Butler ready with target name: " + resp.getMetadata().getTargetName());
 		
-		FileUtils.writeByteArrayToFile(new File( "C:/Temp/Temp/" + resp.getMetadata().getTargetName() ), Base64Utils.decodeFromString( resp.getBase64() ));
+		FileUtils.writeByteArrayToFile(new File( resp.getMetadata().getTargetName() ), Base64Utils.decodeFromString( resp.getBase64() ));
 	}
 }
