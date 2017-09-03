@@ -1,7 +1,10 @@
 package be.cadmus.client;
 
-import java.util.HashMap;
+import java.io.File;
 import java.util.Map;
+
+import org.apache.commons.io.FileUtils;
+import org.springframework.util.Base64Utils;
 
 import be.cadmus.client.convert.Convertor;
 import be.cadmus.client.generic.Constants.ConvertFileType;
@@ -14,7 +17,7 @@ import be.cadmus.client.model.Metadata;
 
 public class PdfButlerClientApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		//create metadata
 		Metadata metadata = new Metadata();
@@ -25,33 +28,40 @@ public class PdfButlerClientApplication {
 		//not required: passes the title to replace
 		metadata.setTargetName("[[!AccountName!]]_[[!StageName!]]");
 		//not required: use this field to log who used PDF Butler in your organization
-		metadata.setUserId("istuyver");
+		metadata.setUserId("end system user");
 		metadata.setTargetType(ConvertFileType.PDF);
 
 		//Create datasources
 		Datasources datasources = new Datasources();
-		DatasourceSingle s1 = datasources.getSingle("18393bdc-1445-4cf0-8e05-79fdb9e0d7ec");
-		s1.addData("OppOwner", "Igor Stuyver");
-		s1.addData("AccountName", "CloudCrossing");
-		s1.addData("StageName", "Closed Won");
+		//DatasourceSingle account = datasources.getSingle("<YOUR ACCOUNT DATASOURCE ID>");
+		DatasourceSingle account = datasources.getSingle("c5c1b536-e37f-48ac-83a2-a1427779d63d");
+		account.addData("OppOwner", "Igor Stuyver");
+		account.addData("AccountName", "CloudCrossing");
+		account.addData("StageName", "Closed Won");
+
+		//DatasourceList products = datasources.getList("<YOUR PRODUCTS DATASOURCE ID>");
+		DatasourceList products = datasources.getList("207fb3ba-ae7e-46ec-bbc5-b1b43a5e9d52");
+		Map<String, String> map = products.addMap();
+		map.put("ProdName", "Gizmo 1");
+		map.put("ProdPrice", "1000");
+		map.put("ProdQuantity", "3");
 		
-		DatasourceList sl1 = datasources.getList("62dbb7d8-6c49-4f40-8d4b-8a60e1a00f23");
-		Map<String, String> list = new HashMap<String, String>();
-		list.put("ProdName", "Prod 1");
-		list.put("ProdPrice", "1000");
-		list.put("ProdQuantity", "2");
-		sl1.addData(list);
+		map = products.addMap();
+		map.put("ProdName", "Gizmo 2");
+		map.put("ProdPrice", "500");
+		map.put("ProdQuantity", "4");
 		
-		Map<String, String> list2 = new HashMap<String, String>();
-		list.put("ProdName", "Prod 2");
-		list.put("ProdPrice", "500");
-		list.put("ProdQuantity", "12");
-		sl1.addData(list2);
+		map = products.addMap();
+		map.put("ProdName", "Gizmo 3");
+		map.put("ProdPrice", "10");
+		map.put("ProdQuantity", "50");
 		
-		for(int i=0;i<10;i++) {
-			ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
-			System.out.println("PDF Butler ready with status: " + resp.getResult());
-			System.out.println("PDF Butler ready with target name: " + resp.getMetadata().getTargetName());
-		}
+		//!! be aware that this implementation requires the password for the USER role
+		//ConvertResponse resp = Convertor.doConvert("<YOUR USERNAME>", "<YOUR PASSWORD>", metadata, datasources, "<YOUR DOC CONFIG ID>");
+		ConvertResponse resp = Convertor.doConvert("istuyver", "29f34ab1-baa0-419c-96fa-5ed9428d1e20", metadata, datasources, "0445b4b1-8163-4350-a524-56d2c23b16f6");
+		System.out.println("PDF Butler ready with status: " + resp.getResult());
+		System.out.println("PDF Butler ready with target name: " + resp.getMetadata().getTargetName());
+		
+		FileUtils.writeByteArrayToFile(new File( "C:/Temp/Temp/" + resp.getMetadata().getTargetName() ), Base64Utils.decodeFromString( resp.getBase64() ));
 	}
 }

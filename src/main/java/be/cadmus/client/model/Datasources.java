@@ -27,6 +27,14 @@ public class Datasources {
 		return temp;
 	}
 
+	public DatasourcePicture getPicture(String name) {
+		DatasourcePicture temp = new DatasourcePicture();
+		temp.setName(name);
+		this.datasources.add(temp);
+		
+		return temp;
+	}
+
 	public List<AbstractDatasource> getDatasources() {
 		return datasources;
 	}
@@ -51,6 +59,11 @@ public class Datasources {
 				}
 			} else if(ad instanceof DatasourceList) {
 				DatasourceList ds = (DatasourceList)ad;
+
+				JSONArray data = new JSONArray(ds.getData());
+				dsItem.put("data", data);
+			} else if(ad instanceof DatasourcePicture) {
+				DatasourcePicture ds = (DatasourcePicture)ad;
 
 				JSONArray data = new JSONArray(ds.getData());
 				dsItem.put("data", data);

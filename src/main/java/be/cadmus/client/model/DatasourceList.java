@@ -1,6 +1,7 @@
 package be.cadmus.client.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,5 +20,12 @@ public class DatasourceList extends AbstractDatasource {
 	}
 	public void addData(Map<String, String> item) {
 		this.data.add(item);
+	}
+	
+	public Map<String, String> addMap() {
+		Map<String, String> map = new HashMap<String, String>();
+		this.data.add(map);
+		
+		return map;
 	}
 }
